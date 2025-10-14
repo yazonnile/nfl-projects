@@ -1,21 +1,51 @@
-// NFL API - Main entry point
-// Exports all API functions for external use
+import { getNflLeagueData } from './get-nfl-league/data';
+import { getNflGroupsStructureData } from './get-nfl-groups-structure/data';
+import { getNflTeamsData } from './get-nfl-teams/data';
+import { getNflScheduleData } from './get-nfl-schedule/data';
+import type { ID } from '$typing-utils/id';
+import type { NflTeam } from '$models/nfl-team';
 
-// Data functions
-export { getNflLeagueData } from './get-nfl-league/data';
-export { getNflGroupsStructureData } from './get-nfl-groups-structure/data';
-export { getNflTeamsData } from './get-nfl-teams/data';
-export { getNflLeagueData as getNflScheduleData } from './get-nfl-schedule/data';
+await Promise.all([getNflLeagueData(), getNflGroupsStructureData(), getNflTeamsData()]).then(
+  async ([nflLeagueData, nflGroupsStructureData, nflTeamsData]) => {
+    const {
+      season: { year, weekNumber }
+    } = nflLeagueData;
+    const { nflConferences, nflDivisions } = nflGroupsStructureData;
+    const { nflTeams: nflTeamsWithOutConfIdAndDivisionId } = nflTeamsData;
+    const { nflWeeks, nflMatches } = await getNflScheduleData({ seasonYear: year });
 
-// Request functions
-export { getNflLeague } from './get-nfl-league/request';
-export { getNflGroupsStructure } from './get-nfl-groups-structure/request';
-export { getNflTeams } from './get-nfl-teams/request';
-export { getNflSchedule } from './get-nfl-schedule/request';
+    // modify teams with conferenceId and divisionId
+    const nflTeams = Object.values(nflTeamsWithOutConfIdAndDivisionId).reduce(
+      (acc, team) => {
+        debugger;
+        for (const { teamsIds, conferenceId, id } of Object.values(nflDivisions)) {
+          if (teamsIds.includes(team.id)) {
+            acc[team.id] = {
+              ...team,
+              conferenceId,
+              divisionId: id
+            };
 
-// Fantasy functions (placeholder - files are empty)
-// export { getFantasyLeague } from './get-fantasy-league/request';
-// export { getFantasyWeek } from './get-fantasy-week/request';
+            return acc;
+          }
+        }
+
+        return acc;
+      },
+      {} as Record<ID, NflTeam>
+    );
+
+    return {
+      nflTeams,
+      nflConferences,
+      nflDivisions,
+      nflWeeks,
+      nflMatches,
+      weekNumber,
+      year
+    };
+  }
+);
 
 // 1 Get NFL status and basic info
 // 2 Build a structure

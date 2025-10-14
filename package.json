@@ -7,6 +7,7 @@
     "api:type-check": "tsc --project tsconfig.api.json --noEmit",
     "api:build": "vite build --mode api",
     "api:run": "node dist/api/api.js",
+    "api:run:tsx": "node --import tsx api/api.ts",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",

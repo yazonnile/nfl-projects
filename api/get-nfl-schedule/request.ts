@@ -7,7 +7,7 @@ interface Competitor<HomeAway> {
   homeAway: HomeAway;
   winner: boolean;
   score: string;
-  records: [
+  records?: [
     {
       summary: string;
     }
@@ -15,7 +15,7 @@ interface Competitor<HomeAway> {
   team: {
     id: string;
   };
-  linescores: [
+  linescores?: [
     {
       value: number;
       period: 1;

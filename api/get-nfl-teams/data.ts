@@ -8,18 +8,10 @@ interface GetNflTeamsReturnType {
 
 export const getNflTeamsData = async (): Promise<GetNflTeamsReturnType> => {
   const nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId'>> = {};
-
   const requestData = await getNflTeams();
 
   for (const {
-    id,
-    slug,
-    name,
-    abbreviation,
-    displayName,
-    alternateColor,
-    color,
-    logos
+    team: { id, slug, name, abbreviation, displayName, alternateColor, color, logos }
   } of requestData.sports[0].leagues[0].teams) {
     let defaultLogo = '';
     let darkLogo = '';

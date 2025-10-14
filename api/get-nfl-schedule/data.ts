@@ -44,9 +44,9 @@ export const getNflScheduleData = async ({
         homeAway: competitor.homeAway,
         winner: competitor.winner,
         score: competitor.score,
-        record: competitor.records[0].summary,
+        record: competitor.records?.[0].summary || null,
         teamId: competitor.team.id,
-        linescores: competitor.linescores.map((line) => line.value)
+        linescores: competitor.linescores?.map((line) => line.value) || null
       };
     });
 

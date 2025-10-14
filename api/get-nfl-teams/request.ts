@@ -4,19 +4,21 @@ interface GetNflTeamsReturnType {
       leagues: [
         {
           teams: Array<{
-            id: string;
-            slug: string;
-            name: string;
-            abbreviation: string;
-            displayName: string;
-            alternateColor: string;
-            color: string;
-            logos: Array<{
-              href: string;
-              width: number;
-              height: number;
-              rel: ['full', 'default' | 'dark'];
-            }>;
+            team: {
+              id: string;
+              slug: string;
+              name: string;
+              abbreviation: string;
+              displayName: string;
+              alternateColor: string;
+              color: string;
+              logos: Array<{
+                href: string;
+                width: number;
+                height: number;
+                rel: ['full', 'default' | 'dark'];
+              }>;
+            };
           }>;
         }
       ];

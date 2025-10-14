@@ -25,7 +25,7 @@ export const getNflGroupsStructureData = async (): Promise<GetNflGroupsStructure
     };
 
     for (const { name, abbreviation, teams } of children) {
-      const divisionId = abbreviation.toLowerCase();
+      const divisionId = `${conferenceId}-${abbreviation.toLowerCase()}`;
 
       nflConferences[conferenceId].divisionsIds.push(divisionId);
 

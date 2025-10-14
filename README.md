@@ -59,3 +59,15 @@ Think about cache some calls.. retry some calls
 3 adopt API data into App data
 4 run client
 5 setup CI
+
+
+
+1 Standing
+  OVERALL
+  DIVISION
+  CONFERENCE
+
+2 SCHEDULE+
+  WEEK+
+  TEAM+
+  DIVISIONAL+
