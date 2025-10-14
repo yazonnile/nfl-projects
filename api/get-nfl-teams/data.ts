@@ -1,6 +1,6 @@
-import type { ID } from '$typing-utils/id';
+import type { ID } from '../../src/lib/typing-utils/id';
 import { getNflTeams } from './request';
-import type { NflTeam } from '$models/nfl-team';
+import type { NflTeam } from '../../src/lib/models/nfl-team';
 
 interface GetNflTeamsReturnType {
   nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId'>>;
@@ -8,11 +8,17 @@ interface GetNflTeamsReturnType {
 
 export const getNflTeamsData = async (): Promise<GetNflTeamsReturnType> => {
   const nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId'>> = {};
-  const requestData = await getNflTeams();
+  const {
+    sports: [
+      {
+        leagues: [{ teams }]
+      }
+    ]
+  } = await getNflTeams();
 
   for (const {
     team: { id, slug, name, abbreviation, displayName, alternateColor, color, logos }
-  } of requestData.sports[0].leagues[0].teams) {
+  } of teams) {
     let defaultLogo = '';
     let darkLogo = '';
 

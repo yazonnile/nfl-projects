@@ -13,10 +13,6 @@
     "sourceMap": true,
     "outDir": "./dist/api",
     "baseUrl": ".",
-    "paths": {
-      "$models/*": ["src/lib/models/*"],
-      "$typing-utils/*": ["src/lib/typing-utils/*"]
-    },
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

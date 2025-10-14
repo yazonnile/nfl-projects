@@ -23,11 +23,6 @@ export default defineConfig(({ command, mode }) => {
             globals: {}
           }
         }
-      },
-      resolve: {
-        alias: {
-          $lib: resolve(__dirname, 'src/lib')
-        }
       }
     };
   }

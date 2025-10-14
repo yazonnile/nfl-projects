@@ -1,3 +1,5 @@
+import type { Ref } from '../utils';
+
 interface GetNflLeagueReturnType {
   id: string;
   name: string;
@@ -10,6 +12,7 @@ interface GetNflLeagueReturnType {
       };
     };
   };
+  group: Ref;
 }
 
 export const getNflLeague = async (): Promise<GetNflLeagueReturnType> => {

@@ -1,6 +1,6 @@
-import type { NflConference } from '$models/nfl-conference';
-import type { NflDivision } from '$models/nfl-division';
-import type { ID } from '$typing-utils/id';
+import type { NflConference } from '../../src/lib/models/nfl-conference';
+import type { NflDivision } from '../../src/lib/models/nfl-division';
+import type { ID } from '../../src/lib/typing-utils/id';
 import { getNflGroupsStructure } from './request';
 
 interface GetNflGroupsStructureDataReturnType {
@@ -12,9 +12,9 @@ export const getNflGroupsStructureData = async (): Promise<GetNflGroupsStructure
   const nflConferences: Record<ID, NflConference> = {};
   const nflDivisions: Record<ID, NflDivision> = {};
 
-  const requestData = await getNflGroupsStructure();
+  const { groups } = await getNflGroupsStructure();
 
-  for (const { name, abbreviation, children } of requestData.groups) {
+  for (const { name, abbreviation, children } of groups) {
     const conferenceId = abbreviation.toLowerCase();
 
     nflConferences[conferenceId] = {

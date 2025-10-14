@@ -1,7 +1,7 @@
 import { getNflSchedule } from './request';
-import { type ID } from '$typing-utils/id';
-import { type NflWeek } from '$models/nfl-week';
-import { type NflMatch } from '$models/nfl-match';
+import { type ID } from '../../src/lib/typing-utils/id';
+import { type NflWeek } from '../../src/lib/models/nfl-week';
+import { type NflMatch } from '../../src/lib/models/nfl-match';
 
 interface GetNflScheduleDataProps {
   seasonYear: number;
@@ -18,14 +18,14 @@ export const getNflScheduleData = async ({
   const nflWeeks: Record<ID, NflWeek> = {};
   const nflMatches: Record<ID, NflMatch> = {};
 
-  const requestData = await getNflSchedule({ seasonYear });
+  const { events } = await getNflSchedule({ seasonYear });
 
   for (const {
     id: matchId,
     date,
     week,
     competitions: [competition]
-  } of requestData.events) {
+  } of events) {
     const weekId = week.number.toString();
 
     if (!nflWeeks[weekId]) {

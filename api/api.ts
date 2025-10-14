@@ -2,13 +2,15 @@ import { getNflLeagueData } from './get-nfl-league/data';
 import { getNflGroupsStructureData } from './get-nfl-groups-structure/data';
 import { getNflTeamsData } from './get-nfl-teams/data';
 import { getNflScheduleData } from './get-nfl-schedule/data';
-import type { ID } from '$typing-utils/id';
-import type { NflTeam } from '$models/nfl-team';
+import { getNflStandingData } from './get-nfl-standing/data';
+import type { ID } from '../src/lib/typing-utils/id';
+import type { NflTeam } from '../src/lib/models/nfl-team';
 
 await Promise.all([getNflLeagueData(), getNflGroupsStructureData(), getNflTeamsData()]).then(
   async ([nflLeagueData, nflGroupsStructureData, nflTeamsData]) => {
     const {
-      season: { year, weekNumber }
+      season: { year, weekNumber },
+      leagueGroupId
     } = nflLeagueData;
     const { nflConferences, nflDivisions } = nflGroupsStructureData;
     const { nflTeams: nflTeamsWithOutConfIdAndDivisionId } = nflTeamsData;
@@ -17,7 +19,6 @@ await Promise.all([getNflLeagueData(), getNflGroupsStructureData(), getNflTeamsD
     // modify teams with conferenceId and divisionId
     const nflTeams = Object.values(nflTeamsWithOutConfIdAndDivisionId).reduce(
       (acc, team) => {
-        debugger;
         for (const { teamsIds, conferenceId, id } of Object.values(nflDivisions)) {
           if (teamsIds.includes(team.id)) {
             acc[team.id] = {
@@ -35,19 +36,20 @@ await Promise.all([getNflLeagueData(), getNflGroupsStructureData(), getNflTeamsD
       {} as Record<ID, NflTeam>
     );
 
+    const nflStanding = await getNflStandingData({
+      seasonYear: year,
+      leagueGroupId
+    });
+
     return {
       nflTeams,
       nflConferences,
       nflDivisions,
       nflWeeks,
       nflMatches,
+      nflStanding,
       weekNumber,
       year
     };
   }
 );
-
-// 1 Get NFL status and basic info
-// 2 Build a structure
-// 3 Build teams list
-// 4 build schedule/scores
