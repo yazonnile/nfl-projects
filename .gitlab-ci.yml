@@ -1,18 +1,40 @@
-# The Docker image that will be used to build your app
 image: node:lts
-pages:
-  stage: deploy
-  cache:
-    key:
-      files:
-        - package-lock.json
-      prefix: pnpm
-    paths:
-      - node_modules/
+stages:
+  - build
+  - deploy
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .pnpm-store
+    - node_modules/
+  policy: pull-push
+
+before_script:
+  - corepack enable
+  - corepack prepare --activate
+  - pnpm config set store-dir .pnpm-store
+  - pnpm config set @scope:registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
+  - pnpm config set -- //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
+  - pnpm install
+
+build:
+  stage: build
   script:
-    - pnpm install
     - pnpm run api:build
     - pnpm run api:run
+  artifacts:
+    paths:
+      - public
+      - node_modules/
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+publish:
+  stage: deploy
+  needs:
+    - job: build
+  script:
     - pnpm run build
     - cp -a dist/. public/
   artifacts:
