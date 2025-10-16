@@ -6,8 +6,6 @@
   let { children }: LayoutProps = $props();
 
   const weeks = Object.values(nflWeeks);
-
-  console.log(weeks);
 </script>
 
 <svelte:head>

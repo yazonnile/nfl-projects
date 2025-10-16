@@ -1,0 +1,22 @@
+# The Docker image that will be used to build your app
+image: node:lts
+pages:
+  stage: deploy
+  cache:
+    key:
+      files:
+        - package-lock.json
+      prefix: pnpm
+    paths:
+      - node_modules/
+  script:
+    - pnpm install
+    - pnpm run api:build
+    - pnpm run api:run
+    - pnpm run build
+    - cp -a dist/. public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
