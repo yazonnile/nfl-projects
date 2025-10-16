@@ -5,7 +5,7 @@ export interface NflCompetitor {
   matchId: ID;
   winner: boolean;
   homeAway: 'home' | 'away';
-  score: string;
+  score: number | null;
   record: string | null;
   teamId: ID;
   linescores: Array<number> | null;

@@ -1,5 +1,5 @@
 import type { ID } from '../../src/lib/typing-utils/id';
-import type { Ref } from '../utils';
+import { type Ref, request } from '../utils';
 
 interface GetNflStandingProps {
   seasonYear: number;
@@ -52,9 +52,8 @@ export const getNflStanding = async ({
   seasonYear,
   leagueGroupId
 }: GetNflStandingProps): Promise<GetNflStandingReturnType> => {
-  const response = await fetch(
-    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${seasonYear}/types/2/groups/${leagueGroupId}/standings/0?lang=en&region=us`
+  return await request(
+    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${seasonYear}/types/2/groups/${leagueGroupId}/standings/0?lang=en&region=us`,
+    'NFL Standing'
   );
-
-  return await response.json();
 };

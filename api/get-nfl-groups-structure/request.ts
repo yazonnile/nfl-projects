@@ -1,3 +1,5 @@
+import { request } from '../utils';
+
 interface GetNflGroupsStructureReturnType {
   groups: Array<{
     name: string;
@@ -13,7 +15,8 @@ interface GetNflGroupsStructureReturnType {
 }
 
 export const getNflGroupsStructure = async (): Promise<GetNflGroupsStructureReturnType> => {
-  const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/groups');
-
-  return await response.json();
+  return await request(
+    'https://site.api.espn.com/apis/site/v2/sports/football/nfl/groups',
+    'NFL Groups Structure'
+  );
 };

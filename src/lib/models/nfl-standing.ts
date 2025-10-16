@@ -1,4 +1,4 @@
-import type { ID } from '$lib/typing-utils/id';
+import type { ID } from '../typing-utils/id';
 
 export interface NflStanding {
   teamId: ID;

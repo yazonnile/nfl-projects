@@ -62,12 +62,13 @@ Think about cache some calls.. retry some calls
 
 
 
-1 Standing
-  OVERALL
-  DIVISION
-  CONFERENCE
-
-2 SCHEDULE+
-  WEEK+
-  TEAM+
-  DIVISIONAL+
+TODO
+- CI
+- spoiler
+- screenshot
+- date-time
+- responsive (mobile!)
+- rosters
+- rookies/stats
+- top-performers
+- fantasy

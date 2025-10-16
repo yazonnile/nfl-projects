@@ -1,4 +1,4 @@
-import type { Ref } from '../utils';
+import { type Ref, request } from '../utils';
 
 interface GetNflLeagueReturnType {
   id: string;
@@ -16,7 +16,8 @@ interface GetNflLeagueReturnType {
 }
 
 export const getNflLeague = async (): Promise<GetNflLeagueReturnType> => {
-  const response = await fetch('https://sports.core.api.espn.com/v2/sports/football/leagues/nfl');
-
-  return await response.json();
+  return await request(
+    'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl',
+    'NFL League'
+  );
 };

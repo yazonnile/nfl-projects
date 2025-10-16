@@ -6,8 +6,8 @@
   "scripts": {
     "api:type-check": "tsc --project tsconfig.api.json --noEmit",
     "api:build": "vite build --mode api",
-    "api:run": "node dist/api/api.js",
-    "api:run:tsx": "node --import tsx api/api.ts",
+    "api:run": "node dist/api/json.js",
+    "api:dev": "node --import tsx api/json.ts",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
@@ -21,6 +21,7 @@
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.36.0",
     "@sveltejs/adapter-auto": "^6.1.0",
+    "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.43.2",
     "@sveltejs/vite-plugin-svelte": "^6.2.0",
     "@tailwindcss/forms": "^0.5.10",
@@ -41,6 +42,7 @@
     "vite-plugin-devtools-json": "^1.0.0"
   },
   "dependencies": {
+    "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.6.14"
   }
 }

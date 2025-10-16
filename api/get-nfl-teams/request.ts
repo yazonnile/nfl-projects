@@ -1,3 +1,5 @@
+import { request } from '../utils';
+
 interface GetNflTeamsReturnType {
   sports: [
     {
@@ -27,7 +29,8 @@ interface GetNflTeamsReturnType {
 }
 
 export const getNflTeams = async (): Promise<GetNflTeamsReturnType> => {
-  const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams');
-
-  return await response.json();
+  return await request(
+    'https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams',
+    'NFL Teams'
+  );
 };

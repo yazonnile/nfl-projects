@@ -5,4 +5,5 @@ export interface NflWeek {
   date: string;
   number: number;
   matches: Array<ID>;
+  teamsOnBye: Array<ID>;
 }

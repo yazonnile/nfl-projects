@@ -1,4 +1,4 @@
-import { type ID } from './id';
+import type { ID } from '../typing-utils/id';
 
 export interface AbstractModelWithName {
   id: ID;

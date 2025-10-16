@@ -1,4 +1,4 @@
-import { type AbstractModelWithName } from '../typing-utils/abstract-model-with-name';
+import type { AbstractModelWithName } from './abstract-model-with-name';
 import { type ID } from '../typing-utils/id';
 
 export interface NflTeam extends AbstractModelWithName {

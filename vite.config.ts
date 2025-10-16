@@ -9,17 +9,17 @@ export default defineConfig(({ command, mode }) => {
   if (mode === 'api') {
     return {
       build: {
-        lib: {
-          entry: resolve(__dirname, 'api/api.ts'),
-          name: 'NflApi',
-          fileName: 'api',
-          formats: ['es']
-        },
         outDir: 'dist/api',
         emptyOutDir: true,
         rollupOptions: {
-          external: [],
+          input: {
+            api: resolve(__dirname, 'api/api.ts'),
+            json: resolve(__dirname, 'api/json.ts')
+          },
+          external: ['fs', 'path'],
           output: {
+            entryFileNames: '[name].js',
+            format: 'es',
             globals: {}
           }
         }

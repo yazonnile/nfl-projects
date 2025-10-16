@@ -25,3 +25,6 @@ vite.config.ts.timestamp-*
 
 # TypeScript
 *.tsbuildinfo
+
+# json build
+/src/lib/api-data/*.json

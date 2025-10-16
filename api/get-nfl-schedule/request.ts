@@ -1,3 +1,5 @@
+import { request } from '../utils';
+
 interface GetNflScheduleProps {
   seasonYear: number;
 }
@@ -68,6 +70,14 @@ interface GetNflScheduleReturnType {
         competitors: [Competitor<'home'>, Competitor<'away'>];
       }
     ];
+    season: {
+      type: number;
+    };
+    status: {
+      type: {
+        completed: boolean;
+      };
+    };
     // leaders: [
     //   Leader<'passingYards', 'Passing Leader', 'PASS'>,
     //   Leader<'rushingYards', 'Rushing Leader', 'RUSH'>,
@@ -81,9 +91,8 @@ export const getNflSchedule = async ({
 }: GetNflScheduleProps): Promise<GetNflScheduleReturnType> => {
   const startDate = `${seasonYear}0901`;
   const endDate = `${seasonYear + 1}0228`;
-  const response = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=1000&dates=${startDate}-${endDate}`
+  return await request(
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=1000&dates=${startDate}-${endDate}`,
+    'NFL Schedule'
   );
-
-  return await response.json();
 };

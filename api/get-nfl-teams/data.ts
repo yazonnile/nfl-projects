@@ -30,6 +30,11 @@ export const getNflTeamsData = async (): Promise<GetNflTeamsReturnType> => {
       }
     }
 
+    // GIANTS LOGO FIX
+    if (['NYG', 'NYJ'].includes(abbreviation)) {
+      [defaultLogo, darkLogo] = [darkLogo, defaultLogo];
+    }
+
     nflTeams[id] = {
       id,
       slug,
