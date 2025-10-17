@@ -1,4 +1,4 @@
-import apiData from '$lib/api-data/data.min.json';
+import apiData from '../../../dist/api-data/data.min.json';
 import type { ApiDataReturnType } from '$lib/typing-utils/api-data-return-type';
 
 export const {
