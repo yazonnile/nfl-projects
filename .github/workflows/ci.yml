@@ -57,15 +57,15 @@ jobs:
 
       - name: Verify generated API data
         run: |
-          ls -l dist/api-data/
-          test -f dist/api-data/data.min.json
+          ls -l src/lib/api-data/
+          test -f src/lib/api-data/data.min.json
 
       - name: Compare API output with previous version
         id: check_diff
         run: |
           mkdir -p .cache
           if [ -f .cache/data.min.json ]; then
-            if cmp -s dist/api-data/data.min.json .cache/data.min.json; then
+            if cmp -s src/lib/api-data/data.min.json .cache/data.min.json; then
               echo "no_changes=true" >> $GITHUB_OUTPUT
               echo "✅ API data unchanged"
             else
@@ -83,7 +83,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .cache
-          key: ${{ runner.os }}-apidata-${{ hashFiles('dist/api-data/data.min.json') }}
+          key: ${{ runner.os }}-apidata-${{ hashFiles('src/lib/api-data/data.min.json') }}
           restore-keys: |
             ${{ runner.os }}-apidata-
 
