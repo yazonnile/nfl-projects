@@ -1,0 +1,110 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 5 * * *'  # 08:00 Kyiv (UTC+3)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm 10
+        run: npm install -g pnpm@10
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache API build
+        id: api-cache
+        uses: actions/cache@v4
+        with:
+          path: dist/api
+          key: ${{ runner.os }}-api-${{ hashFiles('src/api/**', 'package.json', 'pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-api-
+
+      - name: Build API
+        run: pnpm run api:build
+
+      - name: Run API generator
+        run: pnpm run api:run
+
+      - name: Verify generated API data
+        run: |
+          ls -l dist/api-data/
+          test -f dist/api-data/data.min.json
+
+      - name: Compare API output with previous version
+        id: check_diff
+        run: |
+          mkdir -p .cache
+          if [ -f .cache/data.min.json ]; then
+            if cmp -s dist/api-data/data.min.json .cache/data.min.json; then
+              echo "no_changes=true" >> $GITHUB_OUTPUT
+              echo "✅ API data unchanged"
+            else
+              echo "no_changes=false" >> $GITHUB_OUTPUT
+              echo "🔄 API data changed"
+            fi
+          else
+            echo "no_changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No previous API data to compare"
+          fi
+        continue-on-error: false
+
+      - name: Cache last API data for future runs
+        if: always()
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: ${{ runner.os }}-apidata-${{ hashFiles('dist/api-data/data.min.json') }}
+          restore-keys: |
+            ${{ runner.os }}-apidata-
+
+      - name: Build client app
+        if: steps.check_diff.outputs.no_changes != 'true'
+        run: pnpm run build
+
+      - name: Upload build artifact
+        if: steps.check_diff.outputs.no_changes != 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: needs.build.outputs.no_changes != 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
