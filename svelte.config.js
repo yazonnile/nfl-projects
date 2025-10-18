@@ -19,10 +19,10 @@ const config = {
       strict: true
     }),
     appDir: '/nfl-projects/_app',
-    paths: {
-      // Set the base path to your repository name
-      base: process.env.NODE_ENV === 'production' ? '/nfl-projects' : ''
-    }
+    // paths: {
+    //   // Set the base path to your repository name
+    //   base: process.env.NODE_ENV === 'production' ? '/nfl-projects' : ''
+    // }
   }
 };
 
