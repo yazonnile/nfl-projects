@@ -18,11 +18,9 @@ const config = {
       precompress: false,
       strict: true
     }),
-    // appDir: '/nfl-projects/_app',
-    // paths: {
-    //   // Set the base path to your repository name
-    //   base: process.env.NODE_ENV === 'production' ? '/nfl-projects' : ''
-    // }
+    paths: {
+			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+		}
   }
 };
 
