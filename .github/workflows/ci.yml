@@ -89,6 +89,8 @@ jobs:
 
       - name: Build client app
         if: steps.check_diff.outputs.no_changes != 'true'
+        env:
+         BASE_PATH: '/${{ github.event.repository.name }}'
         run: pnpm run build
 
       - name: Upload build artifact
