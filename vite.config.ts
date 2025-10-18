@@ -30,6 +30,5 @@ export default defineConfig(({ command, mode }) => {
   // Default SvelteKit configuration
   return {
     plugins: [tailwindcss(), sveltekit(), devtoolsJson()],
-    base: '/nfl-projects/'
   };
 });
