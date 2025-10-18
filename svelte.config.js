@@ -17,7 +17,11 @@ const config = {
       fallback: 'index.html',
       precompress: false,
       strict: true
-    })
+    }),
+    paths: {
+      // Set the base path to your repository name
+      base: process.env.NODE_ENV === 'production' ? '/nfl-projects' : ''
+    }
   }
 };
 
