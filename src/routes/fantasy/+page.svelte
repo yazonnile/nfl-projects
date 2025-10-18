@@ -1,5 +1,6 @@
 <script lang="ts">
   import TopMenu from '$lib/components/top-menu.svelte';
+  import { resolve } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -11,7 +12,7 @@
     // { href: '/fantasy', text: 'Fantasy' },
     // { href: '/fantasy', text: 'Fantasy' }
   ]}
-  backButton={{ href: '/nfl-results', text: 'NFL Results' }}
+  backButton={{ href: resolve('/nfl-results/'), text: 'NFL Results' }}
 />
 
 <main class="w-full p-4">

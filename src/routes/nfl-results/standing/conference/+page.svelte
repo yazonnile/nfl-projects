@@ -6,7 +6,7 @@
   const getTeamsIds = (conferenceId: ID) => {
     return Object.keys(nflTeams)
       .filter((teamId: ID) => nflTeams[teamId].conferenceId === conferenceId)
-      .toSorted((a, b) => nflStanding[a].playoffSeed - nflStanding[b].playoffSeed);
+      .sort((a, b) => nflStanding[a].playoffSeed - nflStanding[b].playoffSeed);
   };
 </script>
 

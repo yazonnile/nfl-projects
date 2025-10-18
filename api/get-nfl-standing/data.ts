@@ -54,7 +54,7 @@ export const getNflStandingData = async ({
 
   // sort teams by winPercentage and playoffSeed to get overallSeed
   const nflStanding = nflStandingArray
-    .toSorted((a, b) => {
+    .sort((a, b) => {
       return a.winPercentage < b.winPercentage
         ? 1
         : a.winPercentage > b.winPercentage

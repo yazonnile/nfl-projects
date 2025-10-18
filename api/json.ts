@@ -3,7 +3,7 @@ import { getResponseTime } from './utils';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = 'dist/api-data';
+const DATA_DIR = 'src/lib/api-data';
 const PRETTY_PATH = path.join(DATA_DIR, 'data.pretty.json');
 const MIN_PATH = path.join(DATA_DIR, 'data.min.json');
 

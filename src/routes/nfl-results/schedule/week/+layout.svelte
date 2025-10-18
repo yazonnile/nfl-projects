@@ -1,6 +1,7 @@
 <script lang="ts">
   import { nflWeeks } from '$lib/api-data/store';
   import TabsTextual from '$lib/components/tabs-textual.svelte';
+  import { resolve } from '$app/paths';
   import type { LayoutProps } from './$types';
 
   let { children }: LayoutProps = $props();
@@ -15,7 +16,7 @@
 <TabsTextual
   tabs={weeks.map((week) => ({
     text: week.number.toString(),
-    href: `/nfl-results/schedule/week/${week.id}`
+    href: resolve(`/nfl-results/schedule/week/${week.id}/`)
   }))}
 />
 

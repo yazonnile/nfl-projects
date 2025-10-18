@@ -1,7 +1,8 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
 
   $effect(() => {
-    goto('/nfl-results/schedule/team', { replaceState: true });
+    goto(resolve('/nfl-results/schedule/team'), { replaceState: true });
   });
 </script>

@@ -2,7 +2,7 @@
   import { nflTeams, nflStanding } from '$lib/api-data/store';
   import NflGroup from '$lib/components/nfl-group.svelte';
 
-  const teamsIds = Object.keys(nflTeams).toSorted(
+  const teamsIds = Object.keys(nflTeams).sort(
     (a, b) => nflStanding[a].overallSeed - nflStanding[b].overallSeed
   );
 </script>

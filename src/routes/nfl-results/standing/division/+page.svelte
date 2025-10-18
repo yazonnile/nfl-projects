@@ -4,12 +4,12 @@
   import type { ID } from '$lib/typing-utils/id';
 
   const getTeamsIds = (teamsIds: Array<ID>) => {
-    return teamsIds.toSorted((a, b) => nflStanding[a].overallSeed - nflStanding[b].overallSeed);
+    return teamsIds.sort((a, b) => nflStanding[a].overallSeed - nflStanding[b].overallSeed);
   };
 </script>
 
 <main class="flex flex-wrap justify-around p-4">
   {#each Object.values(nflDivisions) as division}
-    <NflGroup name={division.abbreviation} teamsIds={getTeamsIds(division.teamsIds)} />
+    <NflGroup name={division.name} teamsIds={getTeamsIds(division.teamsIds)} />
   {/each}
 </main>
