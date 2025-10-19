@@ -3,9 +3,11 @@
   import NflMatch from './nfl-match.svelte';
   import NflWeekTeamsOnBye from './nfl-week-teams-on-bye.svelte';
   import type { ID } from '$lib/typing-utils/id';
+  import { weekDateState } from '$lib/components/week-date/week-date-state.svelte';
+  import type { ApiDataReturnType } from '$lib/typing-utils/api-data-return-type';
 
   type Props = {
-    weekNumber: number;
+    weekNumber: ApiDataReturnType['weekNumber'];
     allowedTeamsIds?: Array<ID>;
   };
 
@@ -24,6 +26,62 @@
           );
         })
   );
+
+  const weekEvents = $derived(
+    filteredMatches.reduce(
+      (sum, matchId) => {
+        const { date } = nflMatches[matchId];
+        const dateObj = new Date(date);
+
+        // align second wave games into single time slot (23:25 -> 23:05)
+        if (dateObj.getDay() === 0 && dateObj.getHours() === 23 && dateObj.getMinutes() === 25) {
+          dateObj.setMinutes(5);
+        }
+
+        const dateString = dateObj.toString();
+
+        if (!sum[dateString]) {
+          sum[dateString] = [];
+        }
+
+        sum[dateString].push(matchId);
+        return sum;
+      },
+      {} as Record<ID, Array<ID>>
+    )
+  );
+
+  const weekDates = $derived(
+    Object.keys(weekEvents).sort((a, b) => {
+      const aDate = new Date(a);
+      const bDate = new Date(b);
+      return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+    })
+  );
+
+  const transformDate = (date: string): string => {
+    const dateObj = new Date(date);
+    let dateString = dateObj.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      hour: '2-digit',
+      hour12: false,
+      minute: '2-digit',
+      weekday: 'short'
+    });
+
+    if (dateObj.getDay() === 0 && dateObj.getHours() === 23 && dateObj.getMinutes() === 5) {
+      dateObj.setMinutes(25);
+
+      dateString += ` - ${dateObj.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        hour12: false,
+        minute: '2-digit'
+      })}`;
+    }
+
+    return dateString;
+  };
 </script>
 
 <div class="flex flex-col items-center gap-2 p-4">
@@ -31,11 +89,26 @@
 
   <NflWeekTeamsOnBye {teamsOnBye} />
 
-  <div
-    class="grid w-full justify-center gap-4 [grid-template-columns:repeat(auto-fill,minmax(290px,1fr))]"
-  >
-    {#each filteredMatches as matchId}
-      <NflMatch {matchId} />
+  {#if weekDateState.enabled}
+    {#each weekDates as weekDate}
+      <h3 class="-mx-5 w-full bg-white/10 px-5 py-2.5 text-left font-bold">
+        {transformDate(weekDate)}
+      </h3>
+      <div
+        class="mb-4 grid w-full justify-center gap-4 [grid-template-columns:repeat(auto-fill,minmax(320px,1fr))]"
+      >
+        {#each weekEvents[weekDate] as matchId}
+          <NflMatch {matchId} />
+        {/each}
+      </div>
     {/each}
-  </div>
+  {:else}
+    <div
+      class="grid w-full justify-center gap-4 [grid-template-columns:repeat(auto-fill,minmax(320px,1fr))]"
+    >
+      {#each filteredMatches as matchId}
+        <NflMatch {matchId} />
+      {/each}
+    </div>
+  {/if}
 </div>

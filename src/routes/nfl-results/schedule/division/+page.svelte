@@ -22,7 +22,7 @@
   <title>NFL Schedule by Division</title>
 </svelte:head>
 
-<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-2">
+<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-4">
   {#each divisionIds as divisionId}
     <button
       aria-label={nflDivisions[divisionId].name}

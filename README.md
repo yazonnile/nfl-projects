@@ -60,13 +60,10 @@ Think about cache some calls.. retry some calls
 4 run client
 5 setup CI
 
-
-
 TODO
-- CI
-- spoiler
-- screenshot
-- date-time
+
+<!-- - screenshot -->
+
 - responsive (mobile!)
 - rosters
 - rookies/stats

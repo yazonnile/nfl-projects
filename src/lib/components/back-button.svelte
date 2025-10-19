@@ -12,6 +12,6 @@
 </script>
 
 <Button {href}>
-  <IconBackButton class="h-4 w-4" />
+  <IconBackButton class="-my-3 size-8 shrink-0" />
   <div>{@render children()}</div>
 </Button>

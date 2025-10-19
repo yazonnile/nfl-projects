@@ -42,7 +42,6 @@ export const getNflScheduleData = async ({
     if (!nflWeeks[weekId]) {
       nflWeeks[weekId] = {
         id: weekId,
-        date,
         number: week.number,
         matches: [],
         teamsOnBye: []
@@ -65,6 +64,7 @@ export const getNflScheduleData = async ({
     const match: NflMatch = {
       id: matchId,
       weekId,
+      date,
       competitors: {
         home: homeCompetitor!,
         away: awayCompetitor!

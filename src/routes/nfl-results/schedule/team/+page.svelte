@@ -22,7 +22,7 @@
   <title>NFL Schedule by Team</title>
 </svelte:head>
 
-<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-2">
+<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-4">
   {#each teamIds as id}
     <button
       aria-label={nflTeams[id].displayName}

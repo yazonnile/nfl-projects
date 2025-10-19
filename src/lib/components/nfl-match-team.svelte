@@ -1,16 +1,26 @@
 <script lang="ts">
-  import { nflTeams } from '$lib/api-data/store';
+  import { nflTeams, nflStanding } from '$lib/api-data/store';
+  import { type NflCompetitor } from '$lib/models/nfl-competitor';
   import { type ID } from '$lib/typing-utils/id';
+  import Spoiler from './spoiler/spoiler.svelte';
 
   type Props = {
     teamId: ID;
-    score: string;
-    record: string;
+    score: NflCompetitor['score'];
+    record: NflCompetitor['record'];
   };
 
   let { teamId, score, record }: Props = $props();
 
   const teamData = $derived(nflTeams[teamId]);
+  const teamStanding = $derived(nflStanding[teamId]);
+  const teamRecord = $derived.by(() => {
+    if (teamStanding.ties) {
+      return `${teamStanding.wins}-${teamStanding.ties}-${teamStanding.losses}`;
+    }
+
+    return `${teamStanding.wins}-${teamStanding.losses}`;
+  });
 </script>
 
 {#if teamData}
@@ -25,10 +35,12 @@
       <div class="flex-none pr-1 text-left text-xl font-bold uppercase leading-6 tracking-wide">
         {teamData.name}
       </div>
-      <div class="flex-1 self-end text-left text-sm font-bold">{record}</div>
+      <div class="flex-1 self-end text-left text-sm font-bold">
+        <Spoiler>{record ? `${teamRecord} (${record})` : teamRecord}</Spoiler>
+      </div>
     </div>
     <div class="flex-1 pr-0 text-right text-xl font-bold uppercase leading-6 tracking-wide">
-      {score ?? '-'}
+      <Spoiler>{score ?? '-'}</Spoiler>
     </div>
     <div
       class="absolute inset-0 -z-10 h-full w-full opacity-50"

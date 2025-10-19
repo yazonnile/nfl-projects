@@ -3,6 +3,6 @@
   import { resolve } from '$app/paths';
 
   $effect(() => {
-    goto(resolve('/nfl-results/schedule/team'), { replaceState: true });
+    goto(resolve('/nfl-results/schedule/week'), { replaceState: true });
   });
 </script>
