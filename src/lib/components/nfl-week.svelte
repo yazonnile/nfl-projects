@@ -89,26 +89,19 @@
 
   <NflWeekTeamsOnBye {teamsOnBye} />
 
-  {#if weekDateState.enabled}
-    {#each weekDates as weekDate}
+  {#each weekDates as weekDate}
+    {#if weekDateState.enabled}
       <h3 class="w-full bg-white/10 p-0.5 px-2 text-left font-bold sm:p-2">
         {transformDate(weekDate)}
       </h3>
-      <div
-        class="mb-4 grid w-full justify-center gap-2 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))] lg:gap-4"
-      >
-        {#each weekEvents[weekDate] as matchId}
-          <NflMatch {matchId} />
-        {/each}
-      </div>
-    {/each}
-  {:else}
+    {/if}
     <div
-      class="grid w-full justify-center gap-2 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))] lg:gap-4"
+      class="mb-4 grid w-full justify-center gap-2 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))] lg:gap-4"
+      class:mb-4={weekDateState.enabled}
     >
-      {#each filteredMatches as matchId}
+      {#each weekEvents[weekDate] as matchId}
         <NflMatch {matchId} />
       {/each}
     </div>
-  {/if}
+  {/each}
 </div>

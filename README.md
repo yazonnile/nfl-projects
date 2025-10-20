@@ -64,7 +64,6 @@ TODO
 
 <!-- - screenshot -->
 
-- responsive (mobile!)
 - rosters
 - rookies/stats
 - top-performers
