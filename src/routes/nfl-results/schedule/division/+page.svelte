@@ -22,25 +22,27 @@
   <title>NFL Schedule by Division</title>
 </svelte:head>
 
-<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-4">
-  {#each divisionIds as divisionId}
-    <button
-      aria-label={nflDivisions[divisionId].name}
-      class="font-inherit text-(--text-light) border-1 min-w-50 min-h-12 w-[calc(25%-8px)] max-w-60 cursor-pointer rounded border-gray-500 px-2 py-1 text-center font-bold uppercase hover:border-white"
-      class:bg-(--bg-primary-active)!={isActiveDivision(divisionId)}
-      onclick={() => toggleDivision(divisionId)}
-    >
-      <span class="flex w-full justify-center">{nflDivisions[divisionId].name}</span>
-      <span class="flex w-full justify-center gap-1">
-        {#each nflDivisions[divisionId].teamsIds as teamId}
-          <span
-            class="h-10 w-1/4 flex-shrink-0 bg-contain bg-center bg-no-repeat"
-            style:background-image={`url(${nflTeams[teamId].logos.default})`}
-          ></span>
-        {/each}
-      </span>
-    </button>
-  {/each}
+<nav class="-mx-2 w-[calc(100%+16px)] bg-white/10 px-2 pb-4">
+  <div class="max-w-300 grid grid-cols-2 gap-1 sm:gap-2 md:grid-cols-4 lg:mx-auto">
+    {#each divisionIds as divisionId}
+      <button
+        aria-label={nflDivisions[divisionId].name}
+        class="font-inherit text-(--text-light) border-1 min-h-12 cursor-pointer rounded border-gray-500 px-2 py-1 text-center font-bold uppercase hover:border-white"
+        class:bg-(--bg-primary-active)!={isActiveDivision(divisionId)}
+        onclick={() => toggleDivision(divisionId)}
+      >
+        <span class="flex w-full justify-center">{nflDivisions[divisionId].name}</span>
+        <span class="flex w-full justify-center gap-1">
+          {#each nflDivisions[divisionId].teamsIds as teamId}
+            <span
+              class="h-10 w-1/4 flex-shrink-0 bg-contain bg-center bg-no-repeat"
+              style:background-image={`url(${nflTeams[teamId].logos.default})`}
+            ></span>
+          {/each}
+        </span>
+      </button>
+    {/each}
+  </div>
 </nav>
 
 {#if selectedDivisionId}
