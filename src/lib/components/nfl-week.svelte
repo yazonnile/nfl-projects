@@ -84,18 +84,18 @@
   };
 </script>
 
-<div class="flex flex-col items-center gap-2 p-4">
-  <h1 class="mb-2 text-2xl font-bold">Week {weekNumber}</h1>
+<div class="flex flex-col items-center gap-1 p-2 pt-2 sm:gap-2">
+  <h1 class="text-2xl font-bold">Week {weekNumber}</h1>
 
   <NflWeekTeamsOnBye {teamsOnBye} />
 
   {#if weekDateState.enabled}
     {#each weekDates as weekDate}
-      <h3 class="-mx-5 w-full bg-white/10 px-5 py-2.5 text-left font-bold">
+      <h3 class="w-full bg-white/10 p-0.5 px-2 text-left font-bold sm:p-2">
         {transformDate(weekDate)}
       </h3>
       <div
-        class="mb-4 grid w-full justify-center gap-4 [grid-template-columns:repeat(auto-fill,minmax(320px,1fr))]"
+        class="mb-4 grid w-full justify-center gap-2 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))] lg:gap-4"
       >
         {#each weekEvents[weekDate] as matchId}
           <NflMatch {matchId} />
@@ -104,7 +104,7 @@
     {/each}
   {:else}
     <div
-      class="grid w-full justify-center gap-4 [grid-template-columns:repeat(auto-fill,minmax(320px,1fr))]"
+      class="grid w-full justify-center gap-2 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))] lg:gap-4"
     >
       {#each filteredMatches as matchId}
         <NflMatch {matchId} />

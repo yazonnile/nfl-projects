@@ -1,25 +1,31 @@
 <script lang="ts">
   import { nflStanding, nflTeams } from '$lib/api-data/store';
   import type { ID } from '$lib/typing-utils/id';
+  import { twMerge } from 'tailwind-merge';
 
   type Props = {
     name: string;
+    abbreviation: string;
     teamsIds: Array<ID>;
+    class?: string;
   };
 
-  let { name, teamsIds }: Props = $props();
+  let { name, abbreviation, teamsIds, class: className }: Props = $props();
 </script>
 
-<div
-  class="mt-10 w-[calc(50%-10px)] max-w-[560px] first:mt-0 [&:nth-child(-n+2)]:mt-0 [&:only-child]:mx-auto [&:only-child]:w-[700px]"
->
+<div class={twMerge('max-w-[560px]', className)}>
   <table
-    class="w-full border-collapse border border-white/25 uppercase [&_td]:p-1 [&_td]:text-center"
+    class="w-full border-collapse border border-white/25 text-sm uppercase leading-3 [&_td]:p-1 [&_td]:text-center sm:[&_td]:leading-4 lg:[&_td]:text-base lg:[&_td]:leading-5"
   >
     <thead>
-      <tr class=" font-bold [&_td]:bg-white/25">
-        <td class="w-5 text-right"></td>
-        <td class="text-left! pl-3! w-auto min-w-[190px]"><b>{name}</b></td>
+      <tr class="[&_td]:text-xs! leading-1 font-bold tracking-[1px] [&_td]:bg-white/25">
+        <td class="w-[25px] min-w-[25px] text-right"></td>
+        <td class="text-left! sm:pl-3! min-w-15 w-auto sm:min-w-[150px]"
+          ><b class="-ml-3 whitespace-nowrap sm:ml-0">
+            <span class="hidden sm:inline">{name}</span>
+            <span class="inline sm:hidden">{abbreviation}</span>
+          </b></td
+        >
         <td class="w-[30px] border-l border-white/25">w</td>
         <td class="w-[30px]!">l</td>
         <td class="w-[30px]!">t</td>
@@ -38,13 +44,12 @@
           <td class="text-right!">{index + 1}</td>
           <td class="text-left!">
             <div
-              class="relative -mx-0.5 -my-1 flex flex-1 flex-row flex-nowrap items-center justify-start overflow-hidden px-2 py-0.5 text-white"
+              class="relative -mx-0.5 -my-1 flex flex-1 flex-row flex-nowrap items-center justify-start overflow-hidden px-1 py-0.5 text-white"
             >
-              <div
-                class="flex-none pr-1 text-left text-[22px] font-bold leading-[25px] tracking-[1px]"
-              >
+              <div class="flex-none text-left font-bold leading-3 tracking-[1px]">
                 <!-- class:text-[#6cff6c]={playoff} -->
-                {team.name}
+                <span class="hidden sm:inline">{team.name}</span>
+                <span class="inline sm:hidden">{team.abbreviation}</span>
               </div>
             </div>
           </td>
@@ -56,7 +61,7 @@
               class:text-red-400={standing.winPercentage < 0.5}
               class:text-green-400={standing.winPercentage > 0.5}
               class:text-white={standing.winPercentage === 0.5}
-              >{standing.winPercentage.toFixed(3)}</span
+              >{standing.winPercentage.toFixed(2)}</span
             >
           </td>
           <td class="border-l border-white/25">{standing.pointsFor}</td>

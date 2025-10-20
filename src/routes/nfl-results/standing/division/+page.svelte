@@ -8,8 +8,13 @@
   };
 </script>
 
-<main class="flex flex-wrap justify-around p-4">
+<main class="-mx-2 flex w-[calc(100%+16px)] flex-wrap justify-center gap-4 p-2 sm:p-4">
   {#each Object.values(nflDivisions) as division}
-    <NflGroup name={division.name} teamsIds={getTeamsIds(division.teamsIds)} />
+    <NflGroup
+      name={division.name}
+      abbreviation={division.name.slice(0, 5) + '.'}
+      teamsIds={getTeamsIds(division.teamsIds)}
+      class="w-full lg:w-[calc(50%-8px)]"
+    />
   {/each}
 </main>

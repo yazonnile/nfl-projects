@@ -11,7 +11,7 @@
   const isActiveTab = (href: string) => href === routeId;
 </script>
 
-<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-4">
+<nav class="-mx-2 flex flex-wrap justify-center gap-2 bg-white/10 px-2 pb-2 lg:px-4 lg:pb-4">
   {#each tabs as { href, text }}
     <a
       {href}

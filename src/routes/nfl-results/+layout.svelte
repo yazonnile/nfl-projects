@@ -4,8 +4,7 @@
   import { page } from '$app/state';
   import Button from '$lib/components/button.svelte';
   import BackButton from '$lib/components/back-button.svelte';
-  import SpoilerButton from '$lib/components/spoiler/spoiler-button.svelte';
-  import WeekDateButton from '$lib/components/week-date/week-date-button.svelte';
+  import Divider from '$lib/components/divider.svelte';
 
   let { children } = $props();
 
@@ -14,7 +13,9 @@
 </script>
 
 <TopMenu>
-  <div class="flex items-start gap-2">
+  <div
+    class="flex flex-row flex-wrap justify-center gap-2 sm:items-start lg:justify-start [&>*]:w-[calc(33%-16px/3)] sm:[&>*]:w-auto"
+  >
     <BackButton href={resolve('/fantasy/')}>Fantasy</BackButton>
     <Button
       href={resolve('/nfl-results/standing/')}
@@ -29,7 +30,11 @@
     > -->
   </div>
 
-  <div class="flex items-start gap-2">
+  <Divider />
+
+  <div
+    class="flex flex-row flex-wrap justify-center gap-2 sm:items-start lg:justify-start [&>*]:w-[calc(33%-16px/3)] sm:[&>*]:w-auto"
+  >
     {#if isActive(resolve('/nfl-results/standing/'))}
       <Button
         href={resolve('/nfl-results/standing/overall/')}
@@ -67,6 +72,10 @@
       > -->
     {/if}
   </div>
+
+  {#if typeof children === 'function'}
+    <Divider class="last:hidden" />
+  {/if}
 </TopMenu>
 
 {@render children?.()}

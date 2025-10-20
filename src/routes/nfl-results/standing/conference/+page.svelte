@@ -10,8 +10,13 @@
   };
 </script>
 
-<main class="flex flex-wrap justify-around p-4">
+<main class="-mx-2 flex w-[calc(100%+16px)] flex-wrap justify-center gap-4 p-2 sm:p-4">
   {#each Object.values(nflConferences) as conference}
-    <NflGroup name={conference.abbreviation} teamsIds={getTeamsIds(conference.id)} />
+    <NflGroup
+      name={conference.abbreviation}
+      abbreviation={conference.abbreviation}
+      teamsIds={getTeamsIds(conference.id)}
+      class="w-full lg:w-[calc(50%-8px)]"
+    />
   {/each}
 </main>

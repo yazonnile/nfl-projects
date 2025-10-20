@@ -13,7 +13,7 @@
   const showRecord = $derived(Number(matchData.weekId) < weekNumber);
 </script>
 
-<div class="rounded-md border border-gray-200">
+<div class="flex flex-col rounded-md border border-gray-200">
   <NflMatchTeam
     teamId={matchData.competitors.home.teamId}
     score={matchData.competitors.home.score}

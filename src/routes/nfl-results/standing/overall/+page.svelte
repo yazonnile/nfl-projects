@@ -7,6 +7,6 @@
   );
 </script>
 
-<main class="flex flex-wrap justify-around p-4">
-  <NflGroup name="Overall" {teamsIds} />
+<main class="flex flex-wrap justify-center py-2 sm:py-4">
+  <NflGroup name="Overall" abbreviation="OVR" {teamsIds} class="w-full" />
 </main>
