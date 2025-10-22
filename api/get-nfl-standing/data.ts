@@ -45,7 +45,7 @@ export const getNflStandingData = async ({
       }
 
       nflTeamStanding.winPercentage =
-        nflTeamStanding.wins /
+        (nflTeamStanding.wins + nflTeamStanding.ties / 2) /
         (nflTeamStanding.wins + nflTeamStanding.ties + nflTeamStanding.losses);
     }
 
