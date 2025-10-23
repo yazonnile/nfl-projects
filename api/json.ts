@@ -24,4 +24,13 @@ await Promise.all([
   fs.promises.writeFile(MIN_PATH, JSON.stringify(data), { flag: 'w' })
 ]);
 
+// Calculate and log file sizes
+const prettyStats = fs.statSync(PRETTY_PATH);
+const minStats = fs.statSync(MIN_PATH);
+const prettySizeKB = (prettyStats.size / 1024).toFixed(2);
+const minSizeKB = (minStats.size / 1024).toFixed(2);
+
 console.log(`Data saved to ${DATA_DIR}/`);
+console.log(`📊 File sizes:`);
+console.log(`  📄 data.pretty.json: ${prettySizeKB} KB`);
+console.log(`  📄 data.min.json: ${minSizeKB} KB`);

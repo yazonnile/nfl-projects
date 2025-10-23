@@ -9,50 +9,36 @@ interface GetNflTeamProps {
 interface GetNflTeamReturnType {
   team: {
     id: ID;
-    athletes: Array<{
-      id: ID;
-      teamId: ID;
-      displayName: string;
-      shortName: string;
-      age: number;
-      photo: string;
-      jersey: string;
-      position: {
-        abbreviation: string;
-      };
-      experience: {
-        years: number;
-      };
-      active: boolean;
-      status: {
-        type: 'practice-squad' | 'day-to-day' | 'active';
-      };
-      draft: {
-        round: number;
-        year: number;
-        selection: number;
-      } | null;
-      injuries: Array<{
-        id: ID;
-        type: {
-          abbreviation: 'IR' | 'O' | 'Q';
+    athletes: Array<
+      Pick<NflAthlete, 'id' | 'teamId' | 'displayName' | 'shortName' | 'age' | 'jersey'> & {
+        headshot?: {
+          href: string;
         };
-        details: {
-          returnDate: string;
-          type:
-            | 'Elbow'
-            | 'Knee'
-            | 'Personal'
-            | 'Quadriceps'
-            | 'Groin'
-            | 'Back'
-            | 'Hip'
-            | 'Thigh'
-            | 'Concussion'
-            | 'Shoulder';
+        position: {
+          abbreviation: string;
         };
-      }>;
-    }>;
+        experience: {
+          years: number;
+        };
+        status: {
+          type: NflAthlete['status'];
+        };
+        draft: {
+          round: number;
+          year: number;
+          selection: number;
+        } | null;
+        injuries: Array<{
+          type: {
+            abbreviation: NflAthlete['injuries'][number]['statusType'];
+          };
+          details: {
+            returnDate: string;
+            type: NflAthlete['injuries'][number]['type'];
+          };
+        }>;
+      }
+    >;
   };
 }
 

@@ -40,7 +40,7 @@ export const getNflTeamData = async ({
       displayName: athlete.displayName,
       shortName: athlete.shortName,
       age: athlete.age,
-      photo: athlete.photo,
+      photo: athlete.headshot?.href ?? '',
       jersey: athlete.jersey,
       position: athlete.position.abbreviation,
       experience: athlete.experience.years,
