@@ -3,11 +3,11 @@ import { getNflTeams } from './request';
 import type { NflTeam } from '../../src/lib/models/nfl-team';
 
 interface GetNflTeamsReturnType {
-  nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId'>>;
+  nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId' | 'roster'>>;
 }
 
 export const getNflTeamsData = async (): Promise<GetNflTeamsReturnType> => {
-  const nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId'>> = {};
+  const nflTeams: Record<ID, Omit<NflTeam, 'conferenceId' | 'divisionId' | 'roster'>> = {};
   const {
     sports: [
       {

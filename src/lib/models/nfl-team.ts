@@ -13,4 +13,5 @@ export interface NflTeam extends AbstractModelWithName {
     default: string;
     dark: string;
   };
+  roster: Array<ID>;
 }

@@ -37,27 +37,6 @@ interface Competitor<HomeAway> {
   ];
 }
 
-// interface Leader<Name, DisplayName, ShortDisplayName> {
-//   name: Name;
-//   displayName: DisplayName;
-//   shortDisplayName: ShortDisplayName;
-//   leaders: [
-//     {
-//       displayValue: string;
-//       value: number;
-//       athlete: {
-//         id: string;
-//         fullName: string;
-//         displayName: string;
-//         shortName: string;
-//       };
-//       team: {
-//         id: string;
-//       };
-//     }
-//   ];
-// }
-
 interface GetNflScheduleReturnType {
   events: Array<{
     id: string;
@@ -78,11 +57,6 @@ interface GetNflScheduleReturnType {
         completed: boolean;
       };
     };
-    // leaders: [
-    //   Leader<'passingYards', 'Passing Leader', 'PASS'>,
-    //   Leader<'rushingYards', 'Rushing Leader', 'RUSH'>,
-    //   Leader<'receivingYards', 'Receiving Leader', 'REC'>
-    // ];
   }>;
 }
 

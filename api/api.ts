@@ -6,6 +6,9 @@ import { getNflStandingData } from './get-nfl-standing/data';
 import type { ID } from '../src/lib/typing-utils/id';
 import type { NflTeam } from '../src/lib/models/nfl-team';
 import type { ApiDataReturnType } from '../src/lib/typing-utils/api-data-return-type';
+import { getNflTeamData } from './get-nfl-team/data';
+import type { NflAthlete } from 'src/lib/models/nfl-athlete';
+import type { NflRookie } from 'src/lib/models/nfl-rookie';
 
 export const api = async (): Promise<ApiDataReturnType> => {
   return Promise.all([getNflLeagueData(), getNflGroupsStructureData(), getNflTeamsData()]).then(
@@ -16,8 +19,10 @@ export const api = async (): Promise<ApiDataReturnType> => {
       } = nflLeagueData;
       const { nflConferences, nflDivisions } = nflGroupsStructureData;
       const { nflTeams: nflTeamsWithOutConfIdAndDivisionId } = nflTeamsData;
+      const nflAthletes: Record<ID, NflAthlete> = {};
+      const nflRookies: Record<ID, NflRookie> = {};
 
-      // modify teams with conferenceId and divisionId
+      // modify teams with conferenceId,divisionId,roster
       const nflTeams = Object.values(nflTeamsWithOutConfIdAndDivisionId).reduce(
         (acc, team) => {
           for (const { teamsIds, conferenceId, id } of Object.values(nflDivisions)) {
@@ -25,7 +30,8 @@ export const api = async (): Promise<ApiDataReturnType> => {
               acc[team.id] = {
                 ...team,
                 conferenceId,
-                divisionId: id
+                divisionId: id,
+                roster: []
               };
 
               return acc;
@@ -35,6 +41,16 @@ export const api = async (): Promise<ApiDataReturnType> => {
           return acc;
         },
         {} as Record<ID, NflTeam>
+      );
+
+      await Promise.all(
+        Object.values(nflTeams).map(async (team) => {
+          const { athletes, rookies } = await getNflTeamData({ teamId: team.id });
+
+          Object.assign(nflAthletes, athletes);
+          Object.assign(nflRookies, rookies);
+          team.roster = Object.keys(athletes);
+        })
       );
 
       const { nflStanding } = await getNflStandingData({
@@ -49,6 +65,8 @@ export const api = async (): Promise<ApiDataReturnType> => {
 
       return {
         nflTeams,
+        nflAthletes,
+        nflRookies,
         nflConferences,
         nflDivisions,
         nflWeeks,
