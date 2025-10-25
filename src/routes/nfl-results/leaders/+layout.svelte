@@ -10,9 +10,11 @@
 
   const leadersCategories = Object.values(nflLeaders);
 
-  $effect(() => {
+  const onChangeCategory = (event: Event) => {
+    const target = event.target as HTMLSelectElement;
+    categoryId = target.value as NflLeaders['category'];
     goto(resolve(`/nfl-results/leaders/${categoryId}/`));
-  });
+  };
 </script>
 
 <svelte:head>
@@ -21,7 +23,7 @@
 
 <div class="flex justify-center py-4">
   <select
-    bind:value={categoryId}
+    onchange={onChangeCategory}
     class="lg:min-w-1/2 min-w-full rounded border border-gray-500 bg-white/10 px-3 py-2 text-white focus:border-white focus:outline-none"
   >
     {#each leadersCategories as category}
