@@ -18,6 +18,9 @@ const config = {
       precompress: false,
       strict: true
     }),
+    prerender: {
+      handleUnseenRoutes: 'warn'
+    },
     paths: {
       base: '/nfl-projects'
     }

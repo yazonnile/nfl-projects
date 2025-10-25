@@ -11,8 +11,8 @@
   --leaders-row-bg-hover: #009dff;
   --leaders-info-width: 35%;
 
-  @media (min-width: 768px) {
-    --leaders-info-width: 10%;
+  @media (min-width: 1024px) {
+    --leaders-info-width: 0%;
   }
 
   --bg-primary-02: #00446a;

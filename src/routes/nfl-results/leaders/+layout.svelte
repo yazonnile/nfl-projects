@@ -22,7 +22,7 @@
 <div class="flex justify-center py-4">
   <select
     bind:value={categoryId}
-    class="sm:min-w-1/2 min-w-full rounded border border-gray-500 bg-white/10 px-3 py-2 text-white focus:border-white focus:outline-none"
+    class="lg:min-w-1/2 min-w-full rounded border border-gray-500 bg-white/10 px-3 py-2 text-white focus:border-white focus:outline-none"
   >
     {#each leadersCategories as category}
       <option value={category.category}>{category.displayName}</option>

@@ -34,7 +34,7 @@
         >
           <div
             data-name
-            class="flex max-w-full shrink-0 flex-col items-end gap-0 overflow-hidden text-ellipsis whitespace-nowrap text-right text-xs leading-3 transition-all duration-300 sm:flex-row sm:items-center sm:gap-2 sm:text-base sm:leading-6"
+            class="flex max-w-full shrink-0 flex-col items-end gap-0 overflow-hidden text-ellipsis whitespace-nowrap text-right text-xs leading-3 transition-all duration-300 lg:flex-row lg:items-center lg:gap-2 lg:text-base lg:leading-6"
           >
             {athlete.shortName}
             <img
