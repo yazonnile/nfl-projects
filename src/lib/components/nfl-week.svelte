@@ -34,7 +34,11 @@
         const dateObj = new Date(date);
 
         // align second wave games into single time slot (23:25 -> 23:05)
-        if (dateObj.getDay() === 0 && dateObj.getHours() === 23 && dateObj.getMinutes() === 25) {
+        if (
+          dateObj.getDay() === 0 &&
+          [22, 23].includes(dateObj.getHours()) &&
+          dateObj.getMinutes() === 25
+        ) {
           dateObj.setMinutes(5);
         }
 
@@ -70,7 +74,11 @@
       weekday: 'short'
     });
 
-    if (dateObj.getDay() === 0 && dateObj.getHours() === 23 && dateObj.getMinutes() === 5) {
+    if (
+      dateObj.getDay() === 0 &&
+      [22, 23].includes(dateObj.getHours()) &&
+      dateObj.getMinutes() === 5
+    ) {
       dateObj.setMinutes(25);
 
       dateString += ` - ${dateObj.toLocaleTimeString('en-GB', {
