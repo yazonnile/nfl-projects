@@ -25,17 +25,17 @@
       href={resolve('/nfl-results/schedule/')}
       active={isActive(resolve('/nfl-results/schedule/'))}>Schedule</Button
     >
-    <!-- <Button href={resolve('/nfl-results/stats/')} active={isActive(resolve('/nfl-results/stats/'))}
-      >Stats</Button
-    > -->
+    <Button
+      href={resolve('/nfl-results/leaders/')}
+      active={isActive(resolve('/nfl-results/leaders/'))}>Leaders</Button
+    >
   </div>
 
-  <Divider />
-
-  <div
-    class="flex flex-row flex-wrap justify-center gap-2 sm:items-start lg:justify-start [&>*]:w-[calc(33%-16px/3)] sm:[&>*]:w-auto"
-  >
-    {#if isActive(resolve('/nfl-results/standing/'))}
+  {#if isActive(resolve('/nfl-results/standing/'))}
+    <Divider />
+    <div
+      class="flex flex-row flex-wrap justify-center gap-2 sm:items-start lg:justify-start [&>*]:w-[calc(33%-16px/3)] sm:[&>*]:w-auto"
+    >
       <Button
         href={resolve('/nfl-results/standing/overall/')}
         active={isActive(resolve('/nfl-results/standing/overall/'))}>Overall</Button
@@ -48,7 +48,12 @@
         href={resolve('/nfl-results/standing/division/')}
         active={isActive(resolve('/nfl-results/standing/division/'))}>Division</Button
       >
-    {:else if isActive(resolve('/nfl-results/schedule/'))}
+    </div>
+  {:else if isActive(resolve('/nfl-results/schedule/'))}
+    <Divider />
+    <div
+      class="flex flex-row flex-wrap justify-center gap-2 sm:items-start lg:justify-start [&>*]:w-[calc(33%-16px/3)] sm:[&>*]:w-auto"
+    >
       <Button
         href={resolve('/nfl-results/schedule/week/')}
         active={isActive(resolve('/nfl-results/schedule/week/'))}>Week</Button
@@ -61,17 +66,8 @@
         href={resolve('/nfl-results/schedule/division/')}
         active={isActive(resolve('/nfl-results/schedule/division/'))}>Division</Button
       >
-      <!-- {:else if isActive(resolve('/nfl-results/stats/'))}
-      <Button
-        href={resolve('/nfl-results/stats/top/')}
-        active={isActive(resolve('/nfl-results/stats/top/'))}>Top</Button
-      >
-      <Button
-        href={resolve('/nfl-results/stats/rookie/')}
-        active={isActive(resolve('/nfl-results/stats/rookie/'))}>Rookie</Button
-      > -->
-    {/if}
-  </div>
+    </div>
+  {/if}
 
   {#if typeof children === 'function'}
     <Divider class="last:hidden" />

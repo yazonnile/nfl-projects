@@ -6,11 +6,17 @@
   --bg-primary: #001737;
   --bg-primary-hover: #06519d;
   --bg-primary-active: #398eff;
+  --leaders-row-bg: #6ac1f7;
+  --leaders-row-bg-rookie: #b6e3ff;
+  --leaders-row-bg-hover: #009dff;
+  --leaders-info-width: 35%;
+
+  @media (min-width: 768px) {
+    --leaders-info-width: 10%;
+  }
 
   --bg-primary-02: #00446a;
   --bg-primary-03: #007589;
-  --bg-primary-04: #00a78b;
-  --bg-primary-05: #7dd47a;
   --bg-primary-06: #f9f871;
 
   --text-secondary: #d4a418;

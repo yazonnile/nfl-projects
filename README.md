@@ -9,8 +9,8 @@ TODO
 
 <!-- - screenshot -->
 
-- rosters
-- rookies/stats
-- top-performers
 - use spacing var with media to create a variable for padding/margin/gap in media queries
 - fantasy
+- rosters
+  - injures
+  - rookies
