@@ -15,13 +15,13 @@
 
 <div class="flex flex-col rounded-md border border-gray-200">
   <NflMatchTeam
-    teamId={matchData.competitors.home.teamId}
-    score={matchData.competitors.home.score}
-    record={showRecord ? matchData.competitors.home.record : null}
-  />
-  <NflMatchTeam
     teamId={matchData.competitors.away.teamId}
     score={matchData.competitors.away.score}
     record={showRecord ? matchData.competitors.away.record : null}
+  />
+  <NflMatchTeam
+    teamId={matchData.competitors.home.teamId}
+    score={matchData.competitors.home.score}
+    record={showRecord ? matchData.competitors.home.record : null}
   />
 </div>
