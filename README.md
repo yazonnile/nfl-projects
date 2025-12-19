@@ -7,7 +7,7 @@ MAKE POSSIBLE TO USE OTHER LEAGUES
 
 TODO
 
-<!-- - screenshot -->
+- screenshot
 
 - use spacing var with media to create a variable for padding/margin/gap in media queries
 - fantasy
