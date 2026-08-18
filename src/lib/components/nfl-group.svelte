@@ -57,12 +57,16 @@
           <td>{standing.losses}</td>
           <td>{standing.ties}</td>
           <td class="border-l border-white/25 font-bold">
-            <span
-              class:text-red-400={standing.winPercentage < 0.5}
-              class:text-green-400={standing.winPercentage > 0.5}
-              class:text-white={standing.winPercentage === 0.5}
-              >{standing.winPercentage.toFixed(2)}</span
-            >
+            {#if standing.winPercentage === null}
+              <span>-</span>
+            {:else}
+              <span
+                class:text-red-400={standing.winPercentage < 0.5}
+                class:text-green-400={standing.winPercentage > 0.5}
+                class:text-white={standing.winPercentage === 0.5}
+                >{standing.winPercentage.toFixed(2)}</span
+              >
+            {/if}
           </td>
           <td class="border-l border-white/25">{standing.pointsFor}</td>
           <td>{standing.pointsAgainst}</td>
