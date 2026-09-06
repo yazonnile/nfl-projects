@@ -26,7 +26,7 @@ export const getNflTeamData = async ({
       continue;
     }
 
-    if (athlete.experience.years === 0 && athlete.draft) {
+    if (athlete.experience?.years === 0 && athlete.draft) {
       rookies[athlete.id] = {
         athleteId: athlete.id,
         round: athlete.draft.round,
@@ -43,7 +43,7 @@ export const getNflTeamData = async ({
       photo: athlete.headshot?.href ?? '',
       jersey: athlete.jersey,
       position: athlete.position.abbreviation,
-      experience: athlete.experience.years,
+      experience: athlete.experience?.years ?? 0,
       status: athlete.status.type,
       injuries: athlete.injuries.map((injury) => ({
         statusType: injury.type.abbreviation,
