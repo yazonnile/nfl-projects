@@ -1,3 +1,7 @@
 {
-  "extends": "../tsconfig.api.json"
+  "extends": "../tsconfig.api.json",
+  "compilerOptions": {
+    "rootDir": ".."
+  },
+  "include": ["./**/*.ts", "../src/lib/models/**/*.ts", "../src/lib/typing-utils/**/*.ts"]
 }

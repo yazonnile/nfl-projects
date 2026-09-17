@@ -1,9 +1,8 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "allowJs": true,
@@ -12,7 +11,12 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist/api",
-    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"],
+      "src/*": ["./src/*"]
+    },
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -27,15 +31,6 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": [
-    "api/**/*",
-    "src/lib/models/**/*.ts",
-    "src/lib/typing-utils/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src",
-    "static"
-  ]
+  "include": ["api/**/*", "src/lib/models/**/*.ts", "src/lib/typing-utils/**/*.ts"],
+  "exclude": ["node_modules", "dist", "static"]
 }

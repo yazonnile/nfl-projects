@@ -17,7 +17,7 @@ interface GetNflTeamReturnType {
         position: {
           abbreviation: string;
         };
-        experience: {
+        experience?: {
           years: number;
         };
         status: {
