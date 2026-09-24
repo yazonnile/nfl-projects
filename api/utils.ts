@@ -49,7 +49,7 @@ export const request = async (url: string, type: string) => {
   const responseSizeKB = getResponseSizeKB(response);
 
   if (!response.ok) {
-    const errorMessage = `<<< FAILED: ${type} ${response.status}`;
+    const errorMessage = `<<< FAILED: ${type} ${response.status} ${url}`;
     console.log(`\x1b[31m${errorMessage}\x1b[0m`);
     throw new Error(errorMessage);
   }
