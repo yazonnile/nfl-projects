@@ -50,6 +50,7 @@ interface GetNflScheduleReturnType {
       }
     ];
     season: {
+      year: number;
       type: number;
     };
     status: {
@@ -63,10 +64,20 @@ interface GetNflScheduleReturnType {
 export const getNflSchedule = async ({
   seasonYear
 }: GetNflScheduleProps): Promise<GetNflScheduleReturnType> => {
-  const startDate = `${seasonYear}0901`;
-  const endDate = `${seasonYear + 1}0228`;
-  return await request(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=1000&dates=${startDate}-${endDate}`,
-    'NFL Schedule'
+  const calendarYears = [seasonYear, seasonYear + 1];
+  const seasons = await Promise.all(
+    calendarYears.map(
+      (year) =>
+        request(
+          `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=1000&dates=${year}`,
+          `NFL Schedule ${year}`
+        ) as Promise<GetNflScheduleReturnType>
+    )
   );
+
+  const events = seasons
+    .flatMap((season) => season.events)
+    .filter((event) => event.season.year === seasonYear);
+
+  return { events };
 };
