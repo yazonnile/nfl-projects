@@ -13,9 +13,15 @@ interface GetNflLeadersReturnType {
   }>;
 }
 
-export const getNflLeaders = async (): Promise<GetNflLeadersReturnType> => {
+interface GetNflLeadersProps {
+  seasonYear: number;
+}
+
+export const getNflLeaders = async ({
+  seasonYear
+}: GetNflLeadersProps): Promise<GetNflLeadersReturnType> => {
   return await request(
-    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2025/types/2/leaders`,
+    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${seasonYear}/types/2/leaders`,
     `Leaders Info`
   );
 };

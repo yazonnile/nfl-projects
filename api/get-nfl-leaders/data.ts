@@ -6,8 +6,12 @@ type GetNflLeadersDataReturnType = {
   nflLeaders: Record<NflLeaders['category'], NflLeaders>;
 };
 
-export const getNflLeadersData = async (): Promise<GetNflLeadersDataReturnType> => {
-  const { categories } = await getNflLeaders();
+export const getNflLeadersData = async ({
+  seasonYear
+}: {
+  seasonYear: number;
+}): Promise<GetNflLeadersDataReturnType> => {
+  const { categories } = await getNflLeaders({ seasonYear });
 
   const nflLeaders = {} as Record<NflLeaders['category'], NflLeaders>;
 
