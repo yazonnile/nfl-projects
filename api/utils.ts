@@ -40,25 +40,44 @@ export const getResponseSizeKB = (response: Response): number => {
   return 0;
 };
 
+const REQUEST_ATTEMPTS = 5;
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const request = async (url: string, type: string) => {
   console.log(`\x1b[32m>>> SEND REQUEST: ${type}\x1b[0m`);
 
   const finish = getResponseTime();
-  const response = await fetch(url);
-  const humanizedTime = finish();
-  const responseSizeKB = getResponseSizeKB(response);
+  let lastError: Error | undefined;
 
-  if (!response.ok) {
-    const errorMessage = `<<< FAILED: ${type} ${response.status} ${url}`;
-    console.log(`\x1b[31m${errorMessage}\x1b[0m`);
-    throw new Error(errorMessage);
+  for (let attempt = 1; attempt <= REQUEST_ATTEMPTS; attempt++) {
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        const errorMessage = `<<< FAILED: ${type} ${response.status} ${url}`;
+        console.log(`\x1b[31m${errorMessage}\x1b[0m`);
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+      const humanizedTime = finish();
+      const responseSizeKB = getResponseSizeKB(response);
+
+      console.log(
+        `\x1b[32m<<< REQUEST DATA: ${type} (${responseSizeKB}KB for ${humanizedTime} to complete)\x1b[0m`
+      );
+
+      return data;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+
+      if (attempt < REQUEST_ATTEMPTS) {
+        console.log(`\x1b[33m<<< RETRY ${attempt}/${REQUEST_ATTEMPTS - 1}: ${type}\x1b[0m`);
+        await wait(200 * attempt);
+      }
+    }
   }
 
-  const data = await response.json();
-
-  console.log(
-    `\x1b[32m<<< REQUEST DATA: ${type} (${responseSizeKB}KB for ${humanizedTime} to complete)\x1b[0m`
-  );
-
-  return data;
+  throw lastError;
 };
