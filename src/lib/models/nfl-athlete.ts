@@ -10,7 +10,7 @@ export interface NflAthlete {
   jersey: string;
   position: string;
   experience: number;
-  status: 'practice-squad' | 'day-to-day' | 'active';
+  status: 'practice-squad' | 'day-to-day' | 'active' | undefined;
   injuries: Array<{
     statusType: 'IR' | 'O' | 'Q';
     returnDate: string;

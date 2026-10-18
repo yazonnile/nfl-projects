@@ -22,7 +22,7 @@ export const getNflTeamData = async ({
 
   for (const athlete of team.athletes) {
     // no practice squad athletes
-    if (athlete.status.type === 'practice-squad') {
+    if (athlete.status && athlete.status.type === 'practice-squad') {
       continue;
     }
 
@@ -44,12 +44,13 @@ export const getNflTeamData = async ({
       jersey: athlete.jersey,
       position: athlete.position.abbreviation,
       experience: athlete.experience?.years ?? 0,
-      status: athlete.status.type,
-      injuries: athlete.injuries.map((injury) => ({
-        statusType: injury.type.abbreviation,
-        returnDate: injury.details.returnDate,
-        type: injury.details.type
-      }))
+      status: athlete.status?.type,
+      injuries:
+        athlete.injuries?.map((injury) => ({
+          statusType: injury.type.abbreviation,
+          returnDate: injury.details.returnDate,
+          type: injury.details.type
+        })) || []
     };
   }
 

@@ -20,7 +20,7 @@ interface GetNflTeamReturnType {
         experience?: {
           years: number;
         };
-        status: {
+        status?: {
           type: NflAthlete['status'];
         };
         draft: {
@@ -28,7 +28,7 @@ interface GetNflTeamReturnType {
           year: number;
           selection: number;
         } | null;
-        injuries: Array<{
+        injuries?: Array<{
           type: {
             abbreviation: NflAthlete['injuries'][number]['statusType'];
           };
